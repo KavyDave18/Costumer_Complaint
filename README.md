@@ -1,183 +1,181 @@
-Customer Complaint Root-Cause Intelligence (Lite)
-Project Overview
+Customer Complaint Root-Cause Intelligence System
 
-Large organizations receive a high volume of customer complaints but often lack clear visibility into recurring issues, root causes, and how these issues evolve over time.
+An end-to-end NLP pipeline that transforms unstructured customer complaints into structured operational intelligence.
 
-This project builds an unsupervised NLP pipeline to:
+This system performs semantic clustering, root-cause signal extraction, temporal trend analysis, and interactive visualization for large-scale complaint datasets.
 
-Discover recurring complaint themes
+Overview
 
-Extract root causes using weak supervision
+Organizations receive high volumes of complaint data but lack structured insight into:
 
-Track issue trends over time
+Recurring issue types
 
-The focus is on applied NLP, data quality, and system design, not supervised classification.
+Emerging problem categories
+
+Root causes behind complaints
+
+Temporal growth or decline of issues
+
+This project converts raw complaint narratives into actionable analytics using modern NLP and clustering techniques.
+
+System Capabilities
+
+Text preprocessing and normalization
+
+Sentence-level embedding generation (Sentence-BERT)
+
+Density-based clustering (HDBSCAN)
+
+Weak supervision root-cause labeling
+
+Keyphrase extraction (TF-IDF)
+
+Weekly trend aggregation
+
+Rolling-average growth detection
+
+Interactive dashboard (Streamlit)
+
+Technical Architecture
+1. Data Preparation
+
+Clean complaint narratives
+
+Remove masked tokens (e.g., “XXXX”)
+
+Normalize product categories
+
+Extract temporal features (year, week)
+
+2. Semantic Embedding
+
+Sentence-BERT model
+
+High-dimensional vector representation of complaint text
+
+3. Clustering
+
+HDBSCAN density-based clustering
+
+Automatic noise detection
+
+Sub-clustering of high-density clusters
+
+4. Root Cause Signal Extraction
+
+Keyword-based weak supervision rules:
+
+Delay
+
+Billing
+
+Refund
+
+Cancellation
+
+Outage
+
+Cluster-level dominant cause identification.
+
+5. Temporal Intelligence
+
+Weekly complaint aggregation
+
+4-week rolling average smoothing
+
+Growth/decline detection
+
+High-volume cluster identification
+
+6. Dashboard Interface
+
+Streamlit-based interactive analytics:
+
+Product filtering
+
+Date range filtering
+
+KPI overview
+
+Root cause distribution
+
+Weekly trend visualization
+
+Cluster drill-down
+
+CSV export functionality
+
+Project Structure
+Customer_Complaint/
+│
+├── dashboard/
+│   └── app.py
+│
+├── data/
+│   ├── dashboard_ready_light.csv
+│   └── cluster_week_counts.csv
+│
+├── requirements.txt
+└── README.md
+
+Installation
+Clone Repository
+git clone https://github.com/YOUR_USERNAME/Customer_Complaint.git
+cd Customer_Complaint
+
+Install Dependencies
+pip install -r requirements.txt
+
+Run Application
+streamlit run dashboard/app.py
 
 Dataset
 
-Source: CFPB Consumer Complaint Database (Kaggle mirror)
-Total records: ~100,000 complaints
-Narrative complaints used for NLP: ~20,000
+Source: CFPB Consumer Complaint Dataset (Kaggle)
 
-Only complaints containing free-text narratives are included in the NLP pipeline. Complaints without narrative text were excluded, which is standard practice for text-based complaint analysis.
+The full raw dataset exceeds GitHub’s file size limits and is excluded from this repository.
+A reduced dataset version is included for deployment and demonstration purposes.
 
-Work Completed
-1. Dataset Preparation & Scoping
+Technologies Used
 
-Adapted the project scope to financial services based on data availability
+Python
 
-Standardized column names for consistent pipeline usage
+Pandas
 
-Identified relevant vs irrelevant fields for NLP analysis
+Sentence-Transformers
 
-2. Narrative Filtering & Text Cleaning
+HDBSCAN
 
-Removed complaints without narrative text
+UMAP
 
-Filtered out empty or whitespace-only narratives
+Scikit-learn
 
-Applied minimal text normalization:
+Plotly
 
-lowercasing
+Streamlit
 
-whitespace normalization
+Engineering Challenges Addressed
 
-Removed common boilerplate phrases
+High-dimensional text clustering at scale
 
-Filtered out very short complaints (< 20 words)
+Large noise ratio mitigation
 
-Removed exact duplicate complaint texts
+Sub-clustering of dominant density groups
 
-Result:
-A high-quality corpus of complaint narratives suitable for unsupervised NLP.
+Mixed-type cluster identifier normalization
 
-3. Temporal Preparation
+Efficient dashboard rendering on constrained cloud environments
 
-Converted complaint receipt dates into proper datetime format
+GitHub large-file handling strategy
 
-Removed records with invalid dates
+Potential Applications
 
-Created temporal features (year, month, week)
+Banking complaint monitoring
 
-Selected weekly aggregation as the primary temporal unit to balance noise reduction and responsiveness
+Telecom issue detection
 
-This enables:
+E-commerce customer analytics
 
-trend analysis
+SaaS support intelligence
 
-spike detection
-
-issue evolution tracking
-
-4. Product Category Normalization (Light Data Hustle)
-
-Inspected raw product labels and identified noisy and overlapping categories
-
-Defined 10 canonical product categories
-
-Mapped verbose and inconsistent raw labels to normalized categories
-
-Saved the mapping for reproducibility
-
-Canonical categories include:
-
-Debt Collection
-
-Mortgage
-
-Credit Reporting
-
-Credit Card
-
-Bank Account
-
-Student Loan
-
-Personal Loan
-
-Money Transfer / Payments
-
-Auto Loan
-
-Other
-
-This step reduces category fragmentation and significantly improves interpretability of downstream analysis.
-
-Current State
-
-The project currently has:
-
-Clean and meaningful complaint narratives
-
-Reliable temporal features for trend analysis
-
-Normalized product categories
-
-A stable and interpretable data foundation
-
-No modeling or clustering has been performed yet by design.
-
-Remaining Work
-1. Text Representation
-
-Generate sentence embeddings from cleaned complaint narratives
-
-Select an embedding model suitable for semantic clustering
-
-2. Complaint Clustering
-
-Apply unsupervised clustering to group recurring complaint issues
-
-Validate cluster coherence and adjust parameters as needed
-
-3. Root-Cause Extraction
-
-Use weak supervision (keyword signals + keyphrase extraction) to infer dominant root causes per cluster
-
-Generate human-readable cluster labels
-
-4. Temporal Intelligence
-
-Track complaint clusters over time using weekly aggregation
-
-Identify:
-
-growing issues
-
-declining issues
-
-newly emerging problems
-
-5. Insight Reporting
-
-Generate structured weekly insight summaries:
-
-top recurring issues
-
-root causes
-
-trend changes
-
-(Optional) build a lightweight dashboard for exploration
-
-Key Design Principles
-
-Data quality before modeling
-
-Unsupervised discovery over predefined labels
-
-Interpretability over raw accuracy
-
-Human judgment for semantics, models for patterns
-
-Outcome Goal
-
-Deliver a practical NLP system that:
-
-Identifies recurring customer issues
-
-Explains why problems occur
-
-Tracks how issues change over time
-
-This mirrors how complaint intelligence systems are built in real organizations.
+CX operational risk systems
